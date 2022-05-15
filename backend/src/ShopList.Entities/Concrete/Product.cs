@@ -6,6 +6,7 @@ namespace ShopList.Entities.Concrete
   public class Product : EntityBase
   {
     public string Name { get; set; }
+    public string CreatedBy { get; set; }
     public string ModifiedBy { get; set; }
 
     public int CategoryId { get; set; }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using ShopList.Entities.Abstract;
 
 namespace ShopList.Entities.Concrete
