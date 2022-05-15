@@ -22,6 +22,12 @@ namespace ShopList.DataAccess.Repositories.Concrete
       await _context.SaveChangesAsync();
     }
 
+    public async Task AddRange(List<T> entityList)
+    {
+      await _context.AddRangeAsync(entityList);
+      await _context.SaveChangesAsync();
+    }
+
     public async Task Delete(T entity)
     {
       _context.Remove(entity);

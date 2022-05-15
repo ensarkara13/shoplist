@@ -11,6 +11,7 @@ namespace ShopList.DataAccess.Repositories.Abstract
     Task Add(T entity);
     Task Delete(T entity);
     Task Update(T entity);
+    Task AddRange(List<T> entityList);
     Task<T> Get(Expression<Func<T, bool>> filter);
     Task<List<T>> GetAll(Expression<Func<T, bool>> filter = null);
   }
