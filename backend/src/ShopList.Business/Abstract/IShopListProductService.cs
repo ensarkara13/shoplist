@@ -7,7 +7,7 @@ using ShopList.Entities.DTOs.ShopListProduct;
 
 namespace ShopList.Business.Abstract
 {
-  public interface IShopListProductRepository
+  public interface IShopListProductService
   {
     Task<Result> AddShopListProduct(ShopListProductAddDto shopListProduct);
     Task<Result> AddRangeShopListProduct(List<ShopListProductAddDto> shopListProducts);
