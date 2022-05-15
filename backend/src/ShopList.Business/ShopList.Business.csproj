@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ShopList.DataAccess\ShopList.DataAccess.csproj" />
     <ProjectReference Include="..\ShopList.Entities\ShopList.Entities.csproj" />
+    <ProjectReference Include="..\ShopList.Core\ShopList.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
