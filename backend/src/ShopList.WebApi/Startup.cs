@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using ShopList.Business;
 using ShopList.DataAccess;
 
 namespace ShopList.WebApi
@@ -21,6 +22,7 @@ namespace ShopList.WebApi
     }
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddBusinessLogic();
       services.AddDataAccess(_configuration);
 
       services.AddControllers();
