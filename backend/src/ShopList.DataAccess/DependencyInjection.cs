@@ -19,6 +19,7 @@ namespace ShopList.DataAccess
       services.AddScoped<IProductRepository, EFProductRepository>();
       services.AddScoped<IShopListRepository, EFShopListRepository>();
       services.AddScoped<IUserRepository, EFUserRepository>();
+      services.AddScoped<IShopListProductRepository, EFShopListProductRepository>();
 
       return services;
     }
