@@ -1,9 +1,13 @@
+using System.Collections.Generic;
+
 namespace ShopList.Core.Utilities.Results
 {
   public class Result : IResult
   {
     public bool IsSuccess { get; set; }
     public string Message { get; set; }
+    public List<string> ErrorMessages { get; set; }
+
     public static Result Success()
     {
       return new Result()
@@ -25,6 +29,15 @@ namespace ShopList.Core.Utilities.Results
       {
         IsSuccess = false,
         Message = message
+      };
+    }
+    public static Result Failure(string message, List<string> errorMessages)
+    {
+      return new Result()
+      {
+        IsSuccess = false,
+        Message = message,
+        ErrorMessages = errorMessages
       };
     }
   }
