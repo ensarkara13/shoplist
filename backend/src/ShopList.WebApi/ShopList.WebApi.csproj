@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ShopList.DataAccess\ShopList.DataAccess.csproj" />
+    <ProjectReference Include="..\ShopList.Business\ShopList.Business.csproj" />
   </ItemGroup>
 
 </Project>
