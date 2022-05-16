@@ -1,6 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using ShopList.Business.Abstract;
 using ShopList.Business.Concrete;
+using FluentValidation.AspNetCore;
+using ShopList.Business.Validations.User;
 
 namespace ShopList.Business
 {
@@ -14,6 +16,8 @@ namespace ShopList.Business
       services.AddScoped<IProductService, ProductManager>();
       services.AddScoped<IShopListService, ShopListManager>();
       services.AddScoped<IShopListProductService, ShopListProductManager>();
+
+      services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserAddValidator>());
 
       return services;
     }
