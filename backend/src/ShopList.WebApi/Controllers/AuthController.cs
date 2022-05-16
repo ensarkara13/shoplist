@@ -3,10 +3,12 @@ using System;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
+using System.Text.Json;
 using System.Threading.Tasks;
 using ShopList.Business.Abstract;
 using ShopList.Entities.DTOs.User;
 using ShopList.Core.Utilities.Results;
+using Microsoft.AspNetCore.Identity;
 
 namespace ShopList.WebApi.Controllers
 {
@@ -28,8 +30,9 @@ namespace ShopList.WebApi.Controllers
 
       if (result.IsSuccess)
       {
-        return StatusCode(201);
+        return StatusCode(201, user);
       }
+      
       return BadRequest(result.Message);
     }
   }
