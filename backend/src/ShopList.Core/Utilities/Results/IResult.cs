@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ShopList.Core.Models;
 
 namespace ShopList.Core.Utilities.Results
 {
@@ -6,6 +7,6 @@ namespace ShopList.Core.Utilities.Results
   {
     public bool IsSuccess { get; set; }
     public string Message { get; set; }
-    public List<string> ErrorMessages { get; set; }
+    public List<CustomValidationError> ErrorMessages { get; set; }
   }
 }

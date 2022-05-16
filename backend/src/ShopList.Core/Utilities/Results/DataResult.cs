@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ShopList.Core.Models;
 
 namespace ShopList.Core.Utilities.Results
 {
@@ -10,7 +11,7 @@ namespace ShopList.Core.Utilities.Results
     }
     public bool IsSuccess { get; set; }
     public string Message { get; set; }
-    public List<string> ErrorMessages { get; set; }
+    public List<CustomValidationError> ErrorMessages { get; set; }
 
     public T Data { get; set; }
     public static DataResult<T> Success(T data)
@@ -38,7 +39,7 @@ namespace ShopList.Core.Utilities.Results
         Message = message
       };
     }
-    public static DataResult<T> Failure(string message, List<string> errorMessages)
+    public static DataResult<T> Failure(string message, List<CustomValidationError> errorMessages)
     {
       return new DataResult<T>()
       {
