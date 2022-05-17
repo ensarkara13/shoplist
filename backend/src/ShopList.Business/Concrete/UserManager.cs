@@ -2,27 +2,80 @@ using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using FluentValidation;
+using FluentValidation.Results;
 using ShopList.Business.Abstract;
 using ShopList.Core.Utilities.Results;
+using ShopList.DataAccess.Repositories.Abstract;
+using ShopList.Entities.Concrete;
 using ShopList.Entities.DTOs.User;
+using ShopList.Core.Extensions;
+using Microsoft.AspNetCore.Identity;
+using AutoMapper;
 
 namespace ShopList.Business.Concrete
 {
   public class UserManager : IUserService
   {
-    public Task<Result> AddUser(UserAddDto user)
+    private readonly IUserRepository _userRepository;
+    private readonly IValidator<UserAddDto> _userAddValidator;
+    private readonly IValidator<UserUpdateDto> _userUpdateValidator;
+    private readonly IPasswordHasher<string> _passwordHasher;
+    private readonly IMapper _mapper;
+
+    public UserManager(IUserRepository userRepository, IValidator<UserAddDto> userAddValidator, IValidator<UserUpdateDto> userUpdateValidator, IPasswordHasher<string> hasher, IMapper mapper)
     {
-      throw new NotImplementedException();
+      _userRepository = userRepository;
+      _userAddValidator = userAddValidator;
+      _userUpdateValidator = userUpdateValidator;
+      _passwordHasher = hasher;
+      _mapper = mapper;
     }
 
-    public Task<Result> DeleteUser(int id)
+    public async Task<Result> AddUser(UserAddDto userDto)
     {
-      throw new NotImplementedException();
+      ValidationResult validationResult = _userAddValidator.Validate(userDto);
+      if (validationResult.IsValid)
+      {
+        User user = await _userRepository.Get(u => u.Email == userDto.Email);
+
+        if (user != null)
+        {
+          return Result.Failure("Kullanıcı zaten kayıtlı");
+        }
+
+        user = _mapper.Map<User>(userDto);
+        user.Password = _passwordHasher.HashPassword(userDto.Email, userDto.Password);
+        user.Role = string.IsNullOrEmpty(userDto.Role) ? "User" : userDto.Role;
+
+        await _userRepository.Add(user);
+
+        return Result.Success("Kayıt işlemi başarılı.");
+      }
+      return Result.Failure(validationResult.ConvertToCustomErrors());
     }
 
-    public Task<DataResult<UserGetDto>> GetUser(Expression<Func<UserGetDto, bool>> filter)
+    public async Task<Result> DeleteUser(int id)
     {
-      throw new NotImplementedException();
+      User user = await _userRepository.Get(u => u.Id == id);
+      if (user == null)
+      {
+        return Result.Failure("Silinmek istenen kullanıcı bulunamadı.");
+      }
+      await _userRepository.Delete(user);
+      return Result.Success("Silme işlemi başarılı.");
+    }
+
+    public async Task<DataResult<UserGetDto>> GetUserByEmail(string email)
+    {
+      User user = await _userRepository.Get(u => u.Email == email);
+      if (user == null)
+      {
+        return DataResult<UserGetDto>.Failure("Kullanıcı bulunamadı.");
+      }
+      UserGetDto userGet = _mapper.Map<UserGetDto>(user);
+
+      return DataResult<UserGetDto>.Success(userGet);
     }
 
     public Task<DataResult<List<UserGetDto>>> GetUserList(Expression<Func<UserGetDto, bool>> filter = null)
@@ -30,7 +83,7 @@ namespace ShopList.Business.Concrete
       throw new NotImplementedException();
     }
 
-    public Task<Result> UpdateUser(int id, UserUpdateDto user)
+    public Task<Result> UpdateUser(int id, UserUpdateDto userDto)
     {
       throw new NotImplementedException();
     }
