@@ -12,7 +12,7 @@ namespace ShopList.Business.Abstract
     Task<Result> AddCategory(CategoryAddDto category);
     Task<Result> DeleteCategory(int id);
     Task<Result> UpdateCategory(int id, CategoryUpdateDto category);
-    Task<DataResult<CategoryGetDto>> GetCategory(Expression<Func<CategoryGetDto, bool>> filter);
-    Task<DataResult<List<CategoryGetDto>>> GetCategoryList(Expression<Func<CategoryGetDto, bool>> filter = null);
+    Task<DataResult<CategoryGetDto>> GetCategoryById(int id);
+    Task<DataResult<List<CategoryGetDto>>> GetCategoryList();
   }
 }

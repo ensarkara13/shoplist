@@ -12,7 +12,7 @@ namespace ShopList.Business.Abstract
     Task<Result> AddUser(UserAddDto user);
     Task<Result> DeleteUser(int id);
     Task<Result> UpdateUser(int id, UserUpdateDto user);
-    Task<DataResult<UserGetDto>> GetUser(Expression<Func<UserGetDto, bool>> filter);
+    Task<DataResult<UserGetDto>> GetUserByEmail(string email);
     Task<DataResult<List<UserGetDto>>> GetUserList(Expression<Func<UserGetDto, bool>> filter = null);
   }
 }
