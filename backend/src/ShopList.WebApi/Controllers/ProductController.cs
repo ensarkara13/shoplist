@@ -1,10 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Linq;
-using System.Text;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShopList.Entities.Concrete;
 using ShopList.Entities.DTOs.Product;
 using ShopList.Core.Utilities.Results;
 using Microsoft.AspNetCore.Authorization;
@@ -62,6 +58,8 @@ namespace ShopList.WebApi.Controllers
       return BadRequest(result.ErrorMessages);
     }
 
+    [HttpPut]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateProduct(int id, ProductUpdateDto productUpdateDto)
     {
       Result result = await _productService.UpdateProduct(id, productUpdateDto);
