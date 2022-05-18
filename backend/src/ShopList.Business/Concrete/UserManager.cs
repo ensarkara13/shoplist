@@ -35,24 +35,24 @@ namespace ShopList.Business.Concrete
     public async Task<Result> AddUser(UserAddDto userDto)
     {
       ValidationResult validationResult = _userAddValidator.Validate(userDto);
-      if (validationResult.IsValid)
+      if (!validationResult.IsValid)
       {
-        User user = await _userRepository.Get(u => u.Email == userDto.Email);
-
-        if (user != null)
-        {
-          return Result.Failure("Kullanıcı zaten kayıtlı");
-        }
-
-        user = _mapper.Map<User>(userDto);
-        user.Password = _passwordHasher.HashPassword(userDto.Email, userDto.Password);
-        user.Role = string.IsNullOrEmpty(userDto.Role) ? "User" : userDto.Role;
-
-        await _userRepository.Add(user);
-
-        return Result.Success("Kayıt işlemi başarılı.");
+        return Result.Failure(validationResult.ConvertToCustomErrors());
       }
-      return Result.Failure(validationResult.ConvertToCustomErrors());
+      User user = await _userRepository.Get(u => u.Email == userDto.Email);
+
+      if (user != null)
+      {
+        return Result.Failure("Kullanıcı zaten kayıtlı");
+      }
+
+      user = _mapper.Map<User>(userDto);
+      user.Password = _passwordHasher.HashPassword(userDto.Email, userDto.Password);
+      user.Role = string.IsNullOrEmpty(userDto.Role) ? "User" : userDto.Role;
+
+      await _userRepository.Add(user);
+
+      return Result.Success("Kayıt işlemi başarılı.");
     }
 
     public async Task<Result> DeleteUser(int id)

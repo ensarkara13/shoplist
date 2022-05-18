@@ -31,19 +31,20 @@ namespace ShopList.Business.Concrete
     public async Task<Result> AddCategory(CategoryAddDto categoryDto)
     {
       ValidationResult validationResult = _categoryAddValidator.Validate(categoryDto);
-      if (validationResult.IsValid)
+      if (!validationResult.IsValid)
       {
-        Category category = await _categoryRepository.Get(c => c.Name == categoryDto.Name);
-        if (category != null)
-        {
-          return Result.Failure("Kategori zaten mevcut.");
-        }
-        category = _mapper.Map<Category>(categoryDto);
-        await _categoryRepository.Add(category);
-
-        return Result.Success("Kategori başarı ile eklendi");
+        return Result.Failure(validationResult.ConvertToCustomErrors());
       }
-      return Result.Failure(validationResult.ConvertToCustomErrors());
+      
+      Category category = await _categoryRepository.Get(c => c.Name == categoryDto.Name);
+      if (category != null)
+      {
+        return Result.Failure("Kategori zaten mevcut.");
+      }
+      category = _mapper.Map<Category>(categoryDto);
+      await _categoryRepository.Add(category);
+
+      return Result.Success("Kategori başarı ile eklendi");
     }
 
     public async Task<Result> DeleteCategory(int id)

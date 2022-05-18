@@ -30,21 +30,22 @@ namespace ShopList.Business.Concrete
     public async Task<Result> AddProduct(ProductAddDto productDto)
     {
       ValidationResult validationResult = _productAddValidator.Validate(productDto);
-      if (validationResult.IsValid)
+      if (!validationResult.IsValid)
       {
-        Product product = await _productRepository.Get(p => p.Name == productDto.Name);
-        if (product != null)
-        {
-          return Result.Failure("Ürün zaten mevcut");
-        }
-
-        product = _mapper.Map<Product>(productDto);
-        await _productRepository.Add(product);
-
-        return Result.Success("Ürün ekleme işlemi başarılı.");
+        return Result.Failure(validationResult.ConvertToCustomErrors());
+      }
+      
+      Product product = await _productRepository.Get(p => p.Name == productDto.Name);
+      if (product != null)
+      {
+        return Result.Failure("Ürün zaten mevcut");
       }
 
-      return Result.Failure(validationResult.ConvertToCustomErrors());
+      product = _mapper.Map<Product>(productDto);
+      await _productRepository.Add(product);
+
+      return Result.Success("Ürün ekleme işlemi başarılı.");
+
     }
 
     public async Task<Result> DeleteProduct(int id)
