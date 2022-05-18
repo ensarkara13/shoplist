@@ -12,8 +12,8 @@ namespace ShopList.Business.Abstract
   {
     Task<Result> AddShopList(ShopListAddDto shopList);
     Task<Result> DeleteShopList(int id);
-    Task<Result> UpdateShopList(ShopListUpdateDto shopList);
-    Task<DataResult<ShopListGetDto>> GetShopList(Expression<Func<ShopListGetDto, bool>> filter);
-    Task<DataResult<List<ShopListGetDto>>> GetShopListList(Expression<Func<ShopListGetDto, bool>> filter = null);
+    Task<Result> UpdateShopList(int id, ShopListUpdateDto shopList);
+    Task<DataResult<ShopListGetDto>> GetShopList(int id, int userId);
+    Task<DataResult<List<ShopListGetDto>>> GetShopListList(int userId);
   }
 }
