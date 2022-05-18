@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using ShopList.Entities.Concrete;
 
 namespace ShopList.Entities.DTOs.ShoppingList
 {
