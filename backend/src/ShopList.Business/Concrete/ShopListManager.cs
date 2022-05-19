@@ -34,7 +34,7 @@ namespace ShopList.Business.Concrete
       {
         return Result.Failure(validationResult.ConvertToCustomErrors());
       }
-      ShoppingList shopList = await _shopListRepository.Get(s => s.Name == shopListDto.Name);
+      ShoppingList shopList = await _shopListRepository.Get(s => s.UserId == shopListDto.UserId && s.Name == shopListDto.Name);
       if (shopList != null)
       {
         return Result.Failure("Alışveriş listesi zaten mevcut.");
