@@ -21,7 +21,7 @@ namespace ShopList.Business
 
       services.AddScoped<IPasswordHasher<string>, PasswordHasher<string>>();
 
-      services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserAddValidator>());
+      services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
 
       services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
