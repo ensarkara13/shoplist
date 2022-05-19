@@ -8,8 +8,12 @@ namespace ShopList.Business.Validations.ShoppingList
     public ShopListUpdateValidator()
     {
       RuleFor(s => s.Name)
-        .NotEmpty()
-        .WithMessage("Alışveriş listesi adı alanı boş bırakılamaz.");
+      .NotEmpty()
+      .WithMessage("Alışveriş listesi adı alanı boş bırakılamaz.");
+
+      RuleFor(s => s.UserId)
+      .GreaterThan(0)
+      .WithMessage("Geçersiz Kullanıcı Id");
     }
   }
 }

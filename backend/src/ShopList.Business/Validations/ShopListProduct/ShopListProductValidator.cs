@@ -3,9 +3,9 @@ using ShopList.Entities.DTOs.ShopListProduct;
 
 namespace ShopList.Business.Validations.ShopListProduct
 {
-  public class ShopListProductUpdateValidator : AbstractValidator<ShopListProductUpdateDto>
+  public class ShopListProductValidator : AbstractValidator<ShopListProductDto>
   {
-    public ShopListProductUpdateValidator()
+    public ShopListProductValidator()
     {
       RuleFor(s => s.ProductId)
       .GreaterThan(0)
