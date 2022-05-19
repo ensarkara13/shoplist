@@ -48,21 +48,23 @@ namespace ShopList.WebApi.Controllers
     public async Task<IActionResult> Login(UserLoginDto user)
     {
       DataResult<UserGetDto> result = await _userService.GetUserByEmail(user.Email);
-      if (result.IsSuccess)
+      if (!result.IsSuccess)
       {
-        int verificationResult = (int)(_passwordHasher.VerifyHashedPassword(result.Data.Email, result.Data.Password, user.Password));
-        if (verificationResult == 1)
-        {
-
-          string accessToken = JwtHelper.GenerateAccessToken(_configuration, result.Data.Role);
-
-          return Ok(accessToken);
-        }
-        
-        return BadRequest("Hatalı şifre");
+        return BadRequest(result.Message);
       }
 
-      return BadRequest(result.Message);
+      int verificationResult = (int)(_passwordHasher.VerifyHashedPassword(result.Data.Email, result.Data.Password, user.Password));
+      if (verificationResult == 1)
+      {
+
+        string accessToken = JwtHelper.GenerateAccessToken(_configuration, result.Data.Role);
+
+        HttpContext.Response.Cookies.Append("access-token", accessToken);
+
+        return Ok(accessToken);
+      }
+
+      return BadRequest("Hatalı şifre");
     }
   }
 }
