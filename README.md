@@ -22,4 +22,4 @@ Kısaca projenin amacı kullanıcıların alışveriş yapmalarını kolaylaşt�
   - [Vite](https://vitejs.dev) (Front-End projesini oluşturmak için kullandım.)
   - [Chakra-UI](https://chakra-ui.com)
   - [React Router Dom](https://reactrouter.com)
-
+  - [Yup](https://github.com/jquense/yup)
