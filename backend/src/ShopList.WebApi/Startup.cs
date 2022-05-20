@@ -48,6 +48,7 @@ namespace ShopList.WebApi
       services.AddDataAccess(_configuration);
 
       services.AddControllers();
+      services.AddCors();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -56,6 +57,13 @@ namespace ShopList.WebApi
       {
         app.UseDeveloperExceptionPage();
       }
+
+      app.UseCors(opt =>
+      {
+        opt.AllowAnyHeader();
+        opt.AllowAnyMethod();
+        opt.AllowAnyOrigin();
+      });
 
       app.UseAuthentication();
 
