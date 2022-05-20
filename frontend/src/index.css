@@ -1,10 +1,55 @@
-body {
+*,
+html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+}
+
+
+/* Navbar */
+ul li {
+  list-style: none;
+}
+
+.nav {
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px #e2e8f0;
+  line-height: 2px;
+  align-items: center;
+}
+
+.nav .left {
+  display: flex;
+}
+
+.nav .menu {
+  display: flex;
+  margin-left: 40px;
+}
+
+.nav .menu a {
+  color: #4a5568;
+  text-decoration: none;
+  font-size: 1.1rem;
+  padding: 3px 16px;
+  display: block;
+}
+
+.nav .menu a:hover {
+  color: #000;
+}
+
+.nav .right a {
+  margin-right: 5px;
+}
+
+.content {
+  padding: 15px;
+}
+
+.nav .logo {
+  font-weight: bold;
+  font-size: 24px;
 }
