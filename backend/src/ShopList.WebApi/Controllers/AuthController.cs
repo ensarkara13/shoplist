@@ -12,6 +12,7 @@ using ShopList.WebApi.Models.DTOs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using ShopList.WebApi.Helpers;
+using Microsoft.AspNetCore.Http;
 
 namespace ShopList.WebApi.Controllers
 {
@@ -50,7 +51,7 @@ namespace ShopList.WebApi.Controllers
       DataResult<UserGetDto> result = await _userService.GetUserByEmail(user.Email);
       if (!result.IsSuccess)
       {
-        return BadRequest(result.Message);
+        return BadRequest(new { result.Message, result.ErrorMessages });
       }
 
       int verificationResult = (int)(_passwordHasher.VerifyHashedPassword(result.Data.Email, result.Data.Password, user.Password));
@@ -59,12 +60,10 @@ namespace ShopList.WebApi.Controllers
 
         string accessToken = JwtHelper.GenerateAccessToken(_configuration, result.Data.Role);
 
-        HttpContext.Response.Cookies.Append("access-token", accessToken);
-
-        return Ok(accessToken);
+        return Ok(new { result.Data.Id, result.Data.Role, accessToken });
       }
 
-      return BadRequest("Hatalı şifre");
+      return BadRequest(new { result.Message, result.ErrorMessages });
     }
   }
 }
