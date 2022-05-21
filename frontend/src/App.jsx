@@ -1,9 +1,10 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import LoginPage from "./pages/Auth/LoginPage";
+import RegisterPage from "./pages/Auth/RegisterPage";
 import DashboardPage from "./pages/DashboardPage";
-import LoginPage from "./pages/LoginPage";
 import NotFoundPage from "./pages/NotFoundPage";
-import RegisterPage from "./pages/RegisterPage";
+import ShopListsPage from "./pages/ShopListsPage";
 import AnonymousRoute from "./routes/AnonymousRoute";
 import ProtectedRoute from "./routes/ProtectedRoute";
 
@@ -34,6 +35,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <DashboardPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="shoplists"
+            element={
+              <ProtectedRoute>
+                <ShopListsPage />
               </ProtectedRoute>
             }
           />
