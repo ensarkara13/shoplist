@@ -6,11 +6,12 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     localStorage.setItem("chakra-ui-color-mode", "dark");
   }, []);
+
   useEffect(() => {
     const id = JSON.parse(localStorage.getItem("user-id"));
     if (id > 0) {

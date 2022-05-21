@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@chakra-ui/react";
+import { Button, Text } from "@chakra-ui/react";
 import { useAuthContext } from "../contexts/authContext";
 
 function Navbar() {
@@ -17,14 +17,18 @@ function Navbar() {
         <div className="logo">
           <Link to={isLoggedIn ? "/dashboard" : "/"}>Alışveriş Listesi</Link>
         </div>
-        {isLoggedIn && (
+
+        {isLoggedIn && !isAdmin && (
           <ul className="menu">
             <li>
-              <Link to={"lists"}>Listelerim</Link>
+              <Link to={"shoplists"}>
+                <Text color={"gray.300"}>Listelerim</Text>
+              </Link>
             </li>
           </ul>
         )}
       </div>
+
       <div className="right">
         {!isLoggedIn && (
           <>
@@ -35,6 +39,12 @@ function Navbar() {
               <Button colorScheme="blue">Giriş Yap</Button>
             </Link>
           </>
+        )}
+
+        {isLoggedIn && isAdmin && (
+          <Button colorScheme="orange" m={"2"}>
+            Admin
+          </Button>
         )}
 
         {isLoggedIn && (
