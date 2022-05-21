@@ -1,3 +1,5 @@
+import { get, post } from "./scripts/requests/index";
+
 const baseEndpoint = `${import.meta.env.VITE_BASE_ENDPOINT}`;
 const authEndpoint = `${baseEndpoint}/auth`;
 const categoryEndpoint = `${baseEndpoint}/categories`;
@@ -5,35 +7,28 @@ const productEndpoint = `${baseEndpoint}/products`;
 const shopListEndpoint = `${baseEndpoint}/shoplists`;
 const shopListProductEndpoint = `${baseEndpoint}/shoplistproducts`;
 
-const postRequestOptions = (value, isAuthenticated = false) => {
-  const config = {
-    method: "post",
-    body: JSON.stringify(value),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  if (isAuthenticated) {
-    config.headers["Authorization"] = `Bearer ${localStorage.getItem(
-      "access-token"
-    )}`;
-  }
-
-  return config;
-};
 // AUTH
 export const registerBackend = async (user) => {
-  const data = await fetch(
-    `${authEndpoint}/register`,
-    postRequestOptions(user)
-  );
-  const response = data.json();
-  return response;
+  return await post(`${authEndpoint}/register`, user, false);
 };
 
 export const loginBackend = async (user) => {
-  const data = await fetch(`${authEndpoint}/login`, postRequestOptions(user));
-  const response = data.json();
-  return response;
+  return await post(`${authEndpoint}/login`, user, false);
+};
+
+// GET
+export const getCategoriesBackend = async () => {
+  return await get(categoryEndpoint);
+};
+
+export const getProductsBackend = async () => {
+  return await get(productEndpoint);
+};
+
+export const getShopListsBackend = async () => {
+  return await get(shopListEndpoint);
+};
+
+export const getShopListProductsBackend = async (userId) => {
+  return await get(`${shopListProductEndpoint}/${userId}`);
 };
