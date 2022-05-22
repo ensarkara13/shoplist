@@ -25,6 +25,10 @@ export const getProductsBackend = async () => {
   return await get(productEndpoint);
 };
 
+export const getProductsByCategoryBackend = async (categoryId) => {
+  return await get(`${productEndpoint}?category=${categoryId}`);
+};
+
 export const getShopListsBackend = async () => {
   return await get(shopListEndpoint);
 };
