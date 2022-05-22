@@ -34,7 +34,7 @@ namespace ShopList.Business.Concrete
       {
         return Result.Failure(validationResult.ConvertToCustomErrors());
       }
-      
+
       Product product = await _productRepository.Get(p => p.Name == productDto.Name);
       if (product != null)
       {
@@ -79,6 +79,18 @@ namespace ShopList.Business.Concrete
       if (productList == null)
       {
         return DataResult<List<ProductGetDto>>.Failure("Hiç ürün bulunmamaktadır.");
+      }
+
+      List<ProductGetDto> productGetDtos = _mapper.Map<List<ProductGetDto>>(productList);
+      return DataResult<List<ProductGetDto>>.Success(productGetDtos);
+    }
+
+    public async Task<DataResult<List<ProductGetDto>>> GetProductListByCategory(int categoryId)
+    {
+      List<Product> productList = await _productRepository.GetAll(p => p.CategoryId == categoryId);
+      if (productList == null)
+      {
+        return DataResult<List<ProductGetDto>>.Failure("Kategoriye ait bir ürün bulunmamaktadır.");
       }
 
       List<ProductGetDto> productGetDtos = _mapper.Map<List<ProductGetDto>>(productList);
