@@ -1,8 +1,10 @@
 import { Box, Button, Flex, Text, Heading, Grid } from "@chakra-ui/react";
 import { useAuthContext } from "../contexts/authContext";
+import CategoryBar from "../components/CategoryBar";
 
 function DashboardPage() {
   const { isAdmin } = useAuthContext();
+
   return (
     <>
       {isAdmin && (
@@ -21,10 +23,10 @@ function DashboardPage() {
           <Heading as={"h3"} size={"lg"} my={"4"}>
             Kategoriler
           </Heading>
-          {/* {categories?.length > 0 &&
+          {categories?.length > 0 &&
             categories.map((category, index) => {
               return <CategoryBar key={index} category={category} />;
-            })} */}
+            })}
         </Box>
         <Box m={5}>
           <Heading as={"h3"} size={"lg"} m={"3"}>
