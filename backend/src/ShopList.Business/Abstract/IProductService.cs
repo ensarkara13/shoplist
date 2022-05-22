@@ -14,5 +14,6 @@ namespace ShopList.Business.Abstract
     Task<Result> UpdateProduct(int id, ProductUpdateDto productDto);
     Task<DataResult<ProductGetDto>> GetProductById(int id);
     Task<DataResult<List<ProductGetDto>>> GetProductList();
+    Task<DataResult<List<ProductGetDto>>> GetProductListByCategory(int categoryId);
   }
 }
