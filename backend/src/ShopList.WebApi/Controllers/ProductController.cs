@@ -58,6 +58,18 @@ namespace ShopList.WebApi.Controllers
       return BadRequest(result.ErrorMessages);
     }
 
+    [HttpGet("category")]
+    public async Task<IActionResult> GetProductListByCategory([FromQuery] int categoryId)
+    {
+      DataResult<List<ProductGetDto>> result = await _productService.GetProductListByCategory(categoryId);
+      if (result.IsSuccess)
+      {
+        return Ok(result.Data);
+      }
+
+      return BadRequest(result.ErrorMessages);
+    }
+
     [HttpPut]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> UpdateProduct(int id, ProductUpdateDto productUpdateDto)
