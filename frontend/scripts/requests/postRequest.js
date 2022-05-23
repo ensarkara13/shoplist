@@ -5,6 +5,6 @@ export const postRequest = async (url, value, isAuthenticated = true) => {
     url,
     requestOptions({ value, isAuthenticated, method: "post" })
   );
-  const response = await data.json();
-  return response;
+  // const response = await data.json();
+  // return response;
 };
