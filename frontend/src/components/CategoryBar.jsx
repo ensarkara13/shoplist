@@ -3,30 +3,47 @@ import {
   AccordionItem,
   AccordionButton,
   Box,
+  Button,
 } from "@chakra-ui/react";
-import { getProductsByCategoryBackend } from "../../apiConnection";
-import { useShopListContext } from "../contexts/shopListContext";
+import { useQueryClient, useMutation } from "react-query";
+import { deleteCategoryBackend } from "../../apiConnection";
 
 function CategoryBar({ category }) {
-  const { setProducts } = useShopListContext();
+  const queryClient = useQueryClient();
+  const deleteMutation = useMutation(deleteCategoryBackend, {
+    onSuccess: () => queryClient.invalidateQueries("admin:categories"),
+  });
 
-  const getProducts = async (id) => {
-    const productsResponse = await getProductsByCategoryBackend(id);
-    console.log(productsResponse);
-    setProducts(productsResponse);
+  const handleDelete = (id) => {
+    if (confirm("Silmek istediğinize emin misiniz?")) {
+      deleteMutation.mutate(id, {
+        onSuccess: () => console.log("Success"),
+      });
+    }
   };
 
   return (
     <Accordion>
-      <AccordionItem backgroundColor={"blue.500"}>
+      <AccordionItem backgroundColor={"green.500"}>
         <h2>
           <AccordionButton>
             <Box
               flex="1"
               textAlign="left"
-              onClick={() => getProducts(category.id)}
+              // onClick={() => getProducts(category.id)}
             >
               {category.name}
+            </Box>
+            <Box
+              ms={"2"}
+              backgroundColor={"red.300"}
+              p={"2"}
+              onClick={() => handleDelete(category.id)}
+            >
+              Sil
+            </Box>
+            <Box backgroundColor={"blue.300"} p={"2"} ms={"2"}>
+              Düzenle
             </Box>
           </AccordionButton>
         </h2>
