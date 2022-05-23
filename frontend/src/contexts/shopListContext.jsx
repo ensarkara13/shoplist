@@ -1,12 +1,4 @@
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
-import { getCategoriesBackend } from "../../apiConnection";
+import { createContext, useContext, useState } from "react";
 
 const ShopListContext = createContext();
 
@@ -14,22 +6,11 @@ export const ShopListProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
 
-  const getCategories = useMemo(() => {
-    return async () => {
-      const categoryResponse = await getCategoriesBackend();
-      setCategories(categoryResponse);
-    };
-  }, [categories]);
-
-  useEffect(() => {
-    getCategories();
-  }, []);
-
   const values = {
     categories,
+    setCategories,
     products,
     setProducts,
-    setCategories,
   };
 
   return (
