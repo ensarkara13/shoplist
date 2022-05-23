@@ -1,6 +1,6 @@
 import { requestOptions } from "../requestOptions";
 
-export const post = async (url, value, isAuthenticated = true) => {
+export const postRequest = async (url, value, isAuthenticated = true) => {
   const data = await fetch(
     url,
     requestOptions({ value, isAuthenticated, method: "post" })
