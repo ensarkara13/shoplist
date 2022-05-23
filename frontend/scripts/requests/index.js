@@ -1,4 +1,6 @@
-import { get } from "./getRequest";
-import { post } from "./postRequest";
+import { getRequest } from "./getRequest";
+import { postRequest } from "./postRequest";
+import { deleteRequest } from "./deleteRequest";
+import { putRequest } from "./putRequest";
 
-export { get, post };
+export { getRequest, postRequest, putRequest, deleteRequest };
