@@ -79,3 +79,7 @@ export const updateCategoryBackend = async (categoryId, category) => {
 export const deleteCategoryBackend = async (categoryId) => {
   await deleteRequest(`${categoryEndpoint}/${categoryId}`);
 };
+
+export const deleteProductBackend = async (productId) => {
+  await deleteRequest(`${productEndpoint}/${productId}`);
+};
