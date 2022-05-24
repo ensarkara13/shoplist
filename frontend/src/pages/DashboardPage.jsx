@@ -33,8 +33,6 @@ function DashboardPage() {
     setCategories(categoryData);
   }, [categoryData]);
 
-  console.log(categoryData);
-  console.log(productData);
 
   return (
     <>
