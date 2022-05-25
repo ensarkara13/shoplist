@@ -18,7 +18,9 @@ namespace ShopList.Business.Mappings
      .ForMember(dest => dest.ModifiedAt, opt => opt.MapFrom(src => DateTime.Now));
 
       // Get
-      CreateMap<Product, ProductGetDto>();
+      CreateMap<Product, ProductGetDto>()
+      .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToLongDateString()))
+      .ForMember(dest => dest.ModifiedAt, opt => opt.MapFrom(src => src.ModifiedAt.ToLongDateString()));
     }
   }
 }
