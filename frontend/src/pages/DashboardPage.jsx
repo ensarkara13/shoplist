@@ -2,10 +2,19 @@ import {
   Box,
   Button,
   Flex,
-  Text,
   Heading,
   Grid,
   Spinner,
+  Spacer,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
 } from "@chakra-ui/react";
 import { useAuthContext } from "../contexts/authContext";
 import CategoryBar from "../components/CategoryBar";
@@ -19,23 +28,34 @@ import { useEffect } from "react";
 
 function DashboardPage() {
   const { isAdmin } = useAuthContext();
-  const { setCategories, setProducts } = useShopListContext();
+  const { setCategories } = useShopListContext();
   const { data: categoryData, isLoading: isCategoryLoading } = useQuery(
     "admin:categories",
     getCategoriesBackend
-  );
-  const { data: productData, isLoading: isProductLoading } = useQuery(
-    "admin:products",
-    getProductsBackend
   );
 
   useEffect(() => {
     setCategories(categoryData);
   }, [categoryData]);
 
-
   return (
     <>
+      <Flex>
+        <Box>
+          <Heading as={"h1"} size={"lg"} m={"4"}>
+            Kategoriler
+          </Heading>
+        </Box>
+        <Spacer />
+        <Box>
+          <Heading as={"h1"} size={"lg"} m={"4"}>
+            Ürünler
+          </Heading>
+        </Box>
+        <Spacer />
+        <Spacer />
+      </Flex>
+
       {isAdmin && (
         <Box m={2} p={2}>
           <AddCategoryModal />
@@ -43,11 +63,8 @@ function DashboardPage() {
         </Box>
       )}
 
-      <Flex align={"center"}>
-        <Box m={5}>
-          <Heading as={"h3"} size={"lg"} my={"4"}>
-            Kategoriler
-          </Heading>
+      <Flex>
+        <Box m={"5"}>
           {isCategoryLoading && (
             <Flex align={"center"} m={"5"}>
               <Spinner />
@@ -58,22 +75,9 @@ function DashboardPage() {
               return <CategoryBar key={index} category={category} />;
             })}
         </Box>
-        {isProductLoading && (
-          <Flex align={"center"} m={"5"}>
-            <Spinner />
-          </Flex>
-        )}
-        <Box m={5}>
-          <Heading as={"h3"} size={"lg"} m={"3"}>
-            Ürünler
-          </Heading>
-          <Grid templateColumns={"repeat(4, 1fr)"} gap={4}>
-            {productData?.length > 0 &&
-              productData.map((product, index) => {
-                return <ProductBox key={index} product={product} />;
-              })}
-          </Grid>
-        </Box>
+        <Spacer />
+        <ProductBox />
+        <Spacer />
       </Flex>
     </>
   );
