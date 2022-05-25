@@ -6,6 +6,5 @@ namespace ShopList.Entities.DTOs.Category
   {
     public string Name { get; set; }
     public DateTime ModifiedAt { get; set; }
-    public string ModifiedBy { get; set; }
   }
 }

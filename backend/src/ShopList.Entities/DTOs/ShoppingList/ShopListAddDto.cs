@@ -9,6 +9,5 @@ namespace ShopList.Entities.DTOs.ShoppingList
     public bool IsFinished { get; set; }
     public int UserId { get; set; }
     public DateTime CreatedAt { get; set; }
-    public string CreatedBy { get; set; }
   }
 }
