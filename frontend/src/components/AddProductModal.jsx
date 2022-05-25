@@ -18,8 +18,10 @@ import { useMutation, useQueryClient } from "react-query";
 import { addProductBackend } from "../../apiConnection";
 import { useShopListContext } from "../contexts/shopListContext";
 
+const initialProduct = { name: "", categoryId: null };
+
 function AddProductModal() {
-  const [product, setProduct] = useState({ name: "", categoryId: null });
+  const [product, setProduct] = useState(initialProduct);
   const { categories } = useShopListContext();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
@@ -39,6 +41,8 @@ function AddProductModal() {
       onSuccess: () => console.log("Ürün başarılı"),
       onError: () => console.log("Hata"),
     });
+    setProduct(initialProduct);
+    onClose();
   };
 
   return (

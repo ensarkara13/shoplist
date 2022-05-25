@@ -16,8 +16,10 @@ import { useState } from "react";
 import { addCategoryBackend } from "../../apiConnection";
 import { useMutation, useQueryClient } from "react-query";
 
+const initialCategory = { name: "" };
+
 function AddCategoryModal() {
-  const [category, setCategory] = useState({ name: "" });
+  const [category, setCategory] = useState(initialCategory);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
   const addMutation = useMutation(addCategoryBackend, {
@@ -38,6 +40,9 @@ function AddCategoryModal() {
         console.log(error);
       },
     });
+
+    setCategory(initialCategory);
+    onClose();
   };
 
   return (
