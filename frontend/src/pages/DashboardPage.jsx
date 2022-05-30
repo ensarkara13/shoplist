@@ -1,20 +1,9 @@
 import {
   Box,
-  Button,
   Flex,
   Heading,
-  Grid,
   Spinner,
   Spacer,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableCaption,
-  TableContainer,
 } from "@chakra-ui/react";
 import { useAuthContext } from "../contexts/authContext";
 import CategoryBar from "../components/CategoryBar";
