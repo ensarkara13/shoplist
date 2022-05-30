@@ -68,7 +68,7 @@ function LoginPage() {
                   id="password"
                   name="password"
                   type={"password"}
-                  pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
+                  // pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$"
                   minLength="8"
                   required
                   value={form.password}
