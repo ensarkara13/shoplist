@@ -37,6 +37,9 @@ export const AuthProvider = ({ children }) => {
       console.log(`error messages: ${errorMessages}`);
     }
 
+    if (id === undefined || role === undefined || accessToken === undefined)
+      return;
+
     localStorage.setItem("access-token", accessToken);
     localStorage.setItem("user-role", role);
     localStorage.setItem("user-id", id);
