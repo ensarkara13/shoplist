@@ -63,7 +63,7 @@ namespace ShopList.WebApi.Controllers
         return Ok(new { result.Data.Id, result.Data.Role, accessToken });
       }
 
-      return BadRequest(new { result.Message, result.ErrorMessages });
+      return BadRequest(new { message = "Hatalı Giriş" });
     }
   }
 }
