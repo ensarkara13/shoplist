@@ -1,10 +1,4 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  Spinner,
-  Spacer,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Spinner, Spacer } from "@chakra-ui/react";
 import { useAuthContext } from "../contexts/authContext";
 import CategoryBar from "../components/CategoryBar";
 import ProductBox from "../components/ProductBox";
@@ -16,12 +10,17 @@ import { getCategoriesBackend, getProductsBackend } from "../../apiConnection";
 import { useEffect } from "react";
 
 function DashboardPage() {
-  const { isAdmin } = useAuthContext();
+  const { isAdmin, setCurrentLocation } = useAuthContext();
   const { setCategories } = useShopListContext();
   const { data: categoryData, isLoading: isCategoryLoading } = useQuery(
     "admin:categories",
     getCategoriesBackend
   );
+
+  useEffect(() => {
+    setCurrentLocation(window.location.pathname);
+    localStorage.setItem("current-location", window.location.pathname);
+  }, []);
 
   useEffect(() => {
     setCategories(categoryData);
