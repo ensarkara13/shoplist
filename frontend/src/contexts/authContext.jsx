@@ -7,6 +7,9 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [currentLocation, setCurrentLocation] = useState("/");
+
+  console.log(currentLocation);
 
   useEffect(() => {
     localStorage.setItem("chakra-ui-color-mode", "dark");
@@ -20,6 +23,7 @@ export const AuthProvider = ({ children }) => {
 
       const role = localStorage.getItem("user-role");
       setIsAdmin(role === "Admin" ? true : false);
+      setCurrentLocation(localStorage.getItem("current-location"));
     }
   });
 
@@ -53,6 +57,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("access-token");
     localStorage.removeItem("user-role");
     localStorage.removeItem("user-id");
+    localStorage.removeItem("current-location")
 
     setIsLoggedIn(false);
     setIsAdmin(false);
@@ -66,6 +71,8 @@ export const AuthProvider = ({ children }) => {
     login,
     logout,
     userId,
+    currentLocation,
+    setCurrentLocation,
   };
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
