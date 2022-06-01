@@ -2,10 +2,10 @@ import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/authContext";
 
 function AnonymousRoute({ children }) {
-  const { isLoggedIn } = useAuthContext();
+  const { isLoggedIn, currentLocation } = useAuthContext();
 
   if (isLoggedIn) {
-    return <Navigate to={"/dashboard"} />;
+    return <Navigate to={currentLocation} />;
   }
   return children;
 }
