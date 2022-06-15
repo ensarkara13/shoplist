@@ -35,7 +35,7 @@ namespace ShopList.Business.Concrete
       {
         return Result.Failure(validationResult.ConvertToCustomErrors());
       }
-      
+
       Category category = await _categoryRepository.Get(c => c.Name == categoryDto.Name);
       if (category != null)
       {
@@ -59,6 +59,20 @@ namespace ShopList.Business.Concrete
       await _categoryRepository.Delete(category);
 
       return Result.Success("Kategori başarı ile silindi");
+    }
+
+    public async Task<DataResult<List<CategoryGetWithProductsDto>>> GetCategoriesWithProducts()
+    {
+      List<Category> categoryList = await _categoryRepository.GetCategoriesWithProducts();
+
+      if (categoryList == null)
+      {
+        return DataResult<List<CategoryGetWithProductsDto>>.Failure("Hiç kategori bulunmamaktadır.");
+      }
+
+      List<CategoryGetWithProductsDto> categoryGetDtos = _mapper.Map<List<CategoryGetWithProductsDto>>(categoryList);
+
+      return DataResult<List<CategoryGetWithProductsDto>>.Success(categoryGetDtos);
     }
 
     public async Task<DataResult<CategoryGetDto>> GetCategoryById(int id)
