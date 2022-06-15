@@ -21,6 +21,10 @@ namespace ShopList.Business.Mappings
       CreateMap<Category, CategoryGetDto>()
       .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToLongDateString()))
       .ForMember(dest => dest.ModifiedAt, opt => opt.MapFrom(src => src.ModifiedAt.ToLongDateString()));
+
+      CreateMap<Category, CategoryGetWithProductsDto>()
+      .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt.ToLongDateString()))
+      .ForMember(dest => dest.ModifiedAt, opt => opt.MapFrom(src => src.ModifiedAt.ToLongDateString()));
     }
   }
 }
