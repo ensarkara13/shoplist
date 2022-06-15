@@ -4,6 +4,7 @@ using System;
 using System.Linq.Expressions;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ShopList.Entities.Concrete;
 
 namespace ShopList.Business.Abstract
 {
@@ -14,5 +15,6 @@ namespace ShopList.Business.Abstract
     Task<Result> UpdateCategory(int id, CategoryUpdateDto category);
     Task<DataResult<CategoryGetDto>> GetCategoryById(int id);
     Task<DataResult<List<CategoryGetDto>>> GetCategoryList();
+    Task<DataResult<List<CategoryGetWithProductsDto>>> GetCategoriesWithProducts();
   }
 }
