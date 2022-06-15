@@ -33,9 +33,13 @@ export const loginBackend = async (user) => {
 };
 
 // GET
-export const getCategoriesBackend = async () => {
+export const getCategoriesWithProductsBackend = async () => {
   return await getRequest(categoryEndpoint);
 };
+
+// export const getCategoriesBackend = async () => {
+//   return await getRequest(categoryEndpoint);
+// };
 
 export const getProductsBackend = async () => {
   return await getRequest(productEndpoint);
