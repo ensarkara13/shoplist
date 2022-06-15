@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using ShopList.Entities.DTOs.Category;
 using ShopList.Core.Utilities.Results;
 using ShopList.Business.Abstract;
+using ShopList.Entities.Concrete;
 
 namespace ShopList.WebApi.Controllers
 {
@@ -53,14 +54,23 @@ namespace ShopList.WebApi.Controllers
     [HttpGet]
     public async Task<IActionResult> GetCategoryList()
     {
-      DataResult<List<CategoryGetDto>> result = await _categoryService.GetCategoryList();
+      // DataResult<List<CategoryGetDto>> result = await _categoryService.GetCategoryList();
+
+      // if (result.IsSuccess)
+      // {
+      //   return Ok(result.Data);
+      // }
+
+      // return NotFound(result.Message);
+
+      DataResult<List<CategoryGetWithProductsDto>> result = await _categoryService.GetCategoriesWithProducts();
 
       if (result.IsSuccess)
       {
         return Ok(result.Data);
       }
 
-      return BadRequest(result.Message);
+      return NotFound(result.Message);
     }
 
     [HttpPut("{id}")]
