@@ -26,7 +26,7 @@ function AddProductModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const queryClient = useQueryClient();
   const addMutation = useMutation(addProductBackend, {
-    onSuccess: () => queryClient.invalidateQueries("admin:products"),
+    onSuccess: () => queryClient.invalidateQueries("admin:categories"),
   });
 
   const handleChange = (e) => {
