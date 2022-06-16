@@ -13,39 +13,35 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/authContext";
 import { useMutation, useQueryClient, useQuery } from "react-query";
-import { deleteProductBackend, getProductsBackend } from "../../apiConnection";
+import { deleteProductBackend } from "../../apiConnection";
 import { useShopListContext } from "../contexts/shopListContext";
-import { useEffect } from "react";
 
 function ProductBox() {
   const { isAdmin } = useAuthContext();
-  const { setProducts, products } = useShopListContext();
-  const { data: productData, isLoading: isProductLoading } = useQuery(
-    "admin:products",
-    getProductsBackend
-  );
+  const { products } = useShopListContext();
+  // const { data: productData, isLoading: isProductLoading } = useQuery(
+  //   "admin:products",
+  //   getProductsBackend
+  // );
   const queryClient = useQueryClient();
   const deleteMutation = useMutation(deleteProductBackend, {
-    onSuccess: () => queryClient.invalidateQueries("admin:products"),
+    onSuccess: () => queryClient.invalidateQueries("admin:categories"),
   });
-
-  useEffect(() => {
-    setProducts(productData);
-  }, [productData]);
 
   const handleDelete = async (id) => {
     if (confirm("Silmek istediğinize emin misiniz?")) {
       deleteMutation.mutate(id);
     }
   };
+  console.log(products);
 
   return (
     <>
-      {isProductLoading && (
+      {/* {isProductLoading && (
         <Flex align={"center"} m={"5"}>
           <Spinner />
         </Flex>
-      )}
+      )} */}
       <TableContainer width={"100%"} mx={"3"}>
         <Table>
           <Thead>
