@@ -6,24 +6,38 @@ import { useShopListContext } from "../contexts/shopListContext";
 import AddCategoryModal from "../components/AddCategoryModal";
 import AddProductModal from "../components/AddProductModal";
 import { useQuery } from "react-query";
-import { getCategoriesBackend, getProductsBackend } from "../../apiConnection";
+import { getCategoriesWithProductsBackend } from "../../apiConnection";
 import { useEffect } from "react";
 
 function DashboardPage() {
   const { isAdmin, setCurrentLocation } = useAuthContext();
-  const { setCategories } = useShopListContext();
+  const { setCategories, setProducts, categories } = useShopListContext();
   const { data: categoryData, isLoading: isCategoryLoading } = useQuery(
     "admin:categories",
-    getCategoriesBackend
+    getCategoriesWithProductsBackend
   );
+
+  const getProducts = () => {
+    const categoryProducts = [];
+    if (!isCategoryLoading) {
+      for (let category of categoryData) {
+        category.products.forEach((product) => categoryProducts.push(product));
+      }
+    }
+    return categoryProducts;
+  };
 
   useEffect(() => {
     setCurrentLocation(window.location.pathname);
     localStorage.setItem("current-location", window.location.pathname);
+
+    // setCategories(categoryData);
+    // setProducts(getProducts());
   }, []);
 
   useEffect(() => {
     setCategories(categoryData);
+    setProducts(getProducts());
   }, [categoryData]);
 
   return (
@@ -53,18 +67,25 @@ function DashboardPage() {
 
       <Flex>
         <Box m={"5"}>
-          {isCategoryLoading && (
+          {isCategoryLoading ? (
             <Flex align={"center"} m={"5"}>
               <Spinner />
             </Flex>
-          )}
-          {categoryData?.length > 0 &&
-            categoryData.map((category, index) => {
+          ) : (
+            categories?.length > 0 &&
+            categories.map((category, index) => {
               return <CategoryBar key={index} category={category} />;
-            })}
+            })
+          )}
         </Box>
         <Spacer />
-        <ProductBox />
+        {isCategoryLoading ? (
+          <Flex align={"center"} m={"5"}>
+            <Spinner />
+          </Flex>
+        ) : (
+          <ProductBox />
+        )}
         <Spacer />
       </Flex>
     </>
